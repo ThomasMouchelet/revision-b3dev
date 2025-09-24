@@ -55,8 +55,27 @@ app.post("/posts", async (context) => {
   return context.json(post);
 });
 
-// app.put /posts/:id + body
-// app.delete /posts/:id
+app.put("/posts/:id", async (context) => {
+  const { id } = context.req.param();
+  const body = await context.req.json();
+  const post = posts.find((post) => post.id === Number(id));
+  if (!post) {
+    return context.json({ error: "Post not found" }, 404);
+  }
+  const updatedPost = { ...post, ...body };
+  posts[posts.indexOf(post)] = updatedPost;
+  return context.json(updatedPost);
+});
+
+app.delete("/posts/:id", async (context) => {
+  const { id } = context.req.param();
+  const post = posts.find((post) => post.id === Number(id));
+  if (!post) {
+    return context.json({ error: "Post not found" }, 404);
+  }
+  posts.splice(posts.indexOf(post), 1);
+  return context.json({ message: "Post deleted" });
+});
 
 serve(
   {

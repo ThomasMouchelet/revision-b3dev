@@ -4,3 +4,9 @@ export type PostType = {
   content: string;
   price: number;
 };
+
+export type PostCreateDTO = {
+  title: string;
+  content: string;
+  price: number;
+};
