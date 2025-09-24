@@ -3,6 +3,7 @@ import { PostForm } from "../components/PostForm";
 import { useEffect, useState } from "react";
 import type { PostType } from "../types/post.type";
 import { postService } from "../services/post.service";
+import { DeletePostModal } from "../components/DeletePostModal";
 
 export const EditPostPage = () => {
   const { id } = useParams();
@@ -19,7 +20,10 @@ export const EditPostPage = () => {
 
   return (
     <div className="container mx-auto">
-      <h1>Edit Post</h1>
+      <div className="flex justify-between items-center my-10">
+        <h1>Edit Post</h1>
+        <DeletePostModal id={id as string} />
+      </div>
       <PostForm post={post as PostType} />
     </div>
   );

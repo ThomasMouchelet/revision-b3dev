@@ -32,9 +32,18 @@ const updatePost = async (id: string, post: PostCreateDTO) => {
   return data;
 };
 
+const deletePost = async (id: string) => {
+  const res = await fetch(`${ENDPOINT}/${id}`, {
+    method: "DELETE",
+  });
+  const data = await res.json();
+  return data;
+};
+
 export const postService = {
   getPosts,
   getPost,
   createPost,
   updatePost,
+  deletePost,
 };

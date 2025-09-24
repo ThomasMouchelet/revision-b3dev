@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { PostType } from "../types/post.type";
+import { DeletePostModal } from "./DeletePostModal";
 
 interface PostCardProps {
   post: PostType;
@@ -11,7 +12,10 @@ export const PostCard = ({ post }: PostCardProps) => {
       <h3>{post.title}</h3>
       <p>{post.content.slice(0, 100)}...</p>
       <p>{post.price}€</p>
-      <Link to={`/posts/${post.id}`}>View</Link>
+      <div className="flex gap-4 items-center justify-between">
+        <Link to={`/posts/${post.id}`}>View</Link>
+        <DeletePostModal id={post.id.toString()} />
+      </div>
     </div>
   );
 };
