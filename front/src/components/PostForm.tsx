@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { PostCreateDTO, PostType } from "../types/post.type";
 import { Input } from "./ui/Input";
 import { Button } from "./ui/Button";
@@ -15,9 +15,13 @@ interface PostFormProps {
 }
 
 export const PostForm = ({ post }: PostFormProps) => {
-  const [credentials, setCredentials] = useState<PostCreateDTO>(
-    post || INITIAL_STATE
-  );
+  const [credentials, setCredentials] = useState<PostCreateDTO>(INITIAL_STATE);
+
+  useEffect(() => {
+    if (post) {
+      setCredentials(post);
+    }
+  }, [post]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,7 +29,11 @@ export const PostForm = ({ post }: PostFormProps) => {
     console.log(credentials);
     // if post is null => create else update
     try {
-      await postService.createPost(credentials);
+      if (post) {
+        await postService.updatePost(post.id.toString(), credentials);
+      } else {
+        await postService.createPost(credentials);
+      }
     } catch (error) {
       console.error(error);
     }

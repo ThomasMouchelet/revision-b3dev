@@ -18,7 +18,7 @@ export const EditPostPage = () => {
   };
 
   return (
-    <div>
+    <div className="container mx-auto">
       <h1>Edit Post</h1>
       <PostForm post={post as PostType} />
     </div>

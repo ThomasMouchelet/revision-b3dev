@@ -23,8 +23,18 @@ const createPost = async (post: PostCreateDTO) => {
   return data;
 };
 
+const updatePost = async (id: string, post: PostCreateDTO) => {
+  const res = await fetch(`${ENDPOINT}/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(post),
+  });
+  const data = await res.json();
+  return data;
+};
+
 export const postService = {
   getPosts,
   getPost,
   createPost,
+  updatePost,
 };
